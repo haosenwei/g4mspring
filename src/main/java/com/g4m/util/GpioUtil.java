@@ -24,19 +24,29 @@ public class GpioUtil {
     final GpioPinDigitalOutput pinOut05 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, PinState.LOW);
     final GpioPinDigitalOutput pinOut06 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, PinState.LOW);
     final GpioPinDigitalOutput pinOut07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, PinState.LOW);
-    final GpioPinDigitalOutput pinOut08 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08, PinState.LOW);
-    final GpioPinDigitalOutput pinOut09 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_09, PinState.LOW);
-    final GpioPinDigitalOutput pinOut10 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_10, PinState.LOW);
-    final GpioPinDigitalOutput pinOut11 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_11, PinState.LOW);
-    final GpioPinDigitalOutput pinOut12 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_12, PinState.LOW);
-    final GpioPinDigitalOutput pinOut13 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_13, PinState.LOW);
-    final GpioPinDigitalOutput pinOut14 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_14, PinState.LOW);
-    final GpioPinDigitalOutput pinOut15 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15, PinState.LOW);
-    final GpioPinDigitalOutput pinOut16 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, PinState.LOW);
-    final GpioPinDigitalOutput pinOut17 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_17, PinState.LOW);
-    final GpioPinDigitalOutput pinOut18 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_18, PinState.LOW);
-    final GpioPinDigitalOutput pinOut19 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_19, PinState.LOW);
-    final GpioPinDigitalOutput pinOut20 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_20, PinState.LOW);
+    //    final GpioPinDigitalOutput pinOut08 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_08, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut09 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_09, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut10 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_10, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut11 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_11, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut12 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_12, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut13 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_13, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut14 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_14, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut15 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut16 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut17 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_17, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut18 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_18, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut19 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_19, PinState.LOW);
+//    final GpioPinDigitalOutput pinOut20 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_20, PinState.LOW);
+    final GpioPinDigitalOutput pinOut21 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_21, PinState.LOW);
+    final GpioPinDigitalOutput pinOut22 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_22, PinState.LOW);
+    final GpioPinDigitalOutput pinOut23 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_23, PinState.LOW);
+    final GpioPinDigitalOutput pinOut24 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_24, PinState.LOW);
+    final GpioPinDigitalOutput pinOut25 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_25, PinState.LOW);
+    final GpioPinDigitalOutput pinOut26 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_26, PinState.LOW);
+    final GpioPinDigitalOutput pinOut27 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_27, PinState.LOW);
+    final GpioPinDigitalOutput pinOut28 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_28, PinState.LOW);
+    final GpioPinDigitalOutput pinOut29 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, PinState.LOW);
+    final GpioPinDigitalOutput pinOut30 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_30, PinState.LOW);
 
 
     static {
@@ -78,58 +88,44 @@ public class GpioUtil {
                 pinOut07.setState(status);
                 return true;
             }
-            if (io == 8) {
-                pinOut08.setState(status);
+
+            if (io == 21) {
+                pinOut21.setState(status);
                 return true;
             }
-            if (io == 9) {
-                pinOut09.setState(status);
+            if (io == 22) {
+                pinOut22.setState(status);
                 return true;
             }
-            if (io == 10) {
-                pinOut10.setState(status);
+            if (io == 23) {
+                pinOut23.setState(status);
                 return true;
             }
-            if (io == 11) {
-                pinOut11.setState(status);
+            if (io == 24) {
+                pinOut24.setState(status);
                 return true;
             }
-            if (io == 12) {
-                pinOut12.setState(status);
+            if (io == 25) {
+                pinOut25.setState(status);
                 return true;
             }
-            if (io == 13) {
-                pinOut13.setState(status);
+            if (io == 26) {
+                pinOut26.setState(status);
                 return true;
             }
-            if (io == 14) {
-                pinOut14.setState(status);
+            if (io == 27) {
+                pinOut27.setState(status);
                 return true;
             }
-            if (io == 15) {
-                pinOut15.setState(status);
+            if (io == 28) {
+                pinOut28.setState(status);
                 return true;
             }
-            if (io == 16) {
-                pinOut16.setState(status);
+            if (io == 29) {
+                pinOut29.setState(status);
                 return true;
             }
-            if (io == 17) {
-                pinOut17.setState(status);
-                return true;
-            }
-            if (io == 18) {
-                pinOut18.setState(status);
-                return true;
-            }
-            if (io == 19) {
-                pinOut19.setState(status);
-                return true;
-            }
-            if (io == 20) {
-                pinOut20.setState(status);
-                return true;
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,12 +180,12 @@ public class GpioUtil {
         if (rw == 1) {
             rwStatus = PinState.HIGH;
         }
-        pinOut08.setState(rwStatus);
+        pinOut28.setState(rwStatus);
 
         PinState rsStatus = PinState.LOW;
         if (rs == 1) {
             rsStatus = PinState.HIGH;
         }
-        pinOut09.setState(rsStatus);
+        pinOut29.setState(rsStatus);
     }
 }
