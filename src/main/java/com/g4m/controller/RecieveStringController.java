@@ -1,6 +1,7 @@
 package com.g4m.controller;
 
 import com.g4m.util.GpioUtil;
+import com.pi4j.io.gpio.PinState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,28 +42,40 @@ public class RecieveStringController {
             String[] split = id.split(",");
             for (String a : split) {
                 Integer integer = Integer.valueOf(a);
-                gpioUtil.setValue(integer, 1);
+                gpioUtil.setValue(integer, PinState.HIGH);
             }
         }
         if (nid != null && !"".equals(nid)) {
             String[] split = nid.split(",");
             for (String b : split) {
                 Integer integer = Integer.valueOf(b);
-                gpioUtil.setValue(integer, 0);
+                gpioUtil.setValue(integer, PinState.LOW);
             }
         }
         return "OK";
     }
 
-    @RequestMapping("/getValue")
-    public Map<Integer, Object> getValue() {
-        Map<Integer, Object> value = gpioUtil.getValue();
-        return value;
-    }
-
-    @RequestMapping("/clear")
-    public boolean clear() {
-        boolean value = gpioUtil.clear();
-        return value;
+    @RequestMapping("/lcdOperation")
+    public String lcdOperation(@RequestParam(name = "id") String id) {
+        log.info("id:{},nid:{}", id);
+        String[] split = id.split(",");
+        if (split.length != 8) {
+            return "参数错误";
+        }
+        List<Integer> data = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            data.add(Integer.valueOf(split[i]));
+        }
+        gpioUtil.setLcdValue(data.get(0),
+                data.get(1),
+                data.get(2),
+                data.get(3),
+                data.get(4),
+                data.get(5),
+                data.get(6),
+                data.get(7),
+                data.get(8),
+                data.get(9));
+        return "OK";
     }
 }
