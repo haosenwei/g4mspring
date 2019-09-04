@@ -18,7 +18,7 @@ public class SendEmail {
     public void sendEmail() {
         String ip = "";
         try {
-            ip = "ip:" + AddressUtils.getInnetIp() + ". thank u . ";
+            ip = "ip:" + AddressUtils.getInnetIp() + ". thank u";
         } catch (SocketException e) {
             ip = "get ip fail";
         }
