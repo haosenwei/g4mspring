@@ -14,7 +14,6 @@ import java.util.*;
 public class GpioUtil {
     // create gpio controller
     private static GpioController gpio = GpioFactory.getInstance();
-    final static List<Pin> list = new ArrayList<>();
 
     final GpioPinDigitalOutput pinOut00 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, PinState.LOW);
     final GpioPinDigitalOutput pinOut01 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.LOW);
@@ -48,10 +47,6 @@ public class GpioUtil {
     final GpioPinDigitalOutput pinOut29 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, PinState.LOW);
     final GpioPinDigitalOutput pinOut30 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_30, PinState.LOW);
 
-
-    static {
-        list.addAll(Arrays.asList(RaspiPin.allPins()));
-    }
 
     public boolean setValue(int io, PinState status) {
 

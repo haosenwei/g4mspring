@@ -32,7 +32,7 @@ public class Application extends SpringBootServletInitializer {
         return "hello";
     }
 
-    @RequestMapping("/a")
+    @RequestMapping("/lcd")
     public String a() {
         return "a";
     }
