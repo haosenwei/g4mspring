@@ -59,7 +59,7 @@ public class RecieveStringController {
     public String lcdOperation(@RequestParam(name = "id") String id) {
         log.info("id:{},nid:{}", id);
         String[] split = id.split(",");
-        if (split.length != 8) {
+        if (split.length != 10) {
             return "参数错误";
         }
         List<Integer> data = new ArrayList<>();
