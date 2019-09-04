@@ -125,7 +125,7 @@ public class GpioUtil {
                 pinOut29.setState(status);
                 return true;
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
