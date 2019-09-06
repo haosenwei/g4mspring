@@ -126,6 +126,25 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-5">
+            <div>
+                <label>
+                    <input name="url" type="text" value="">
+                </label>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div>
+                <label>
+                    <input name="rtmp" type="text" value="rtmp://js.live-send.acg.tv/live-js/">
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="button" id="sendValue3" class="btn btn-default">发送</button>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table">
@@ -195,14 +214,20 @@
         html += "<td onclick=\"send('" + textValue + "')\">重发</td>";
         html += "</tr>";
         $("table > tbody").append(html);
-
-
     }
 
     $("#sendValue2").click(function () {
         var textValue = $("input[name='textValue']").val()
         console.log(textValue);
         send(textValue);
+    });
+
+    $("#sendValue3").click(function () {
+        var url = $("input[name='url']").val()
+        var rtmp = $("input[name='rtmp']").val()
+        console.log(url + rtmp);
+        var date = $.ajax({url: "/rtmp?url=" + url + "&rtmp=" + rtmp, async: false});
+        console.log(date)
     });
 
 </script>
