@@ -1,7 +1,7 @@
 package com.g4m.controller;
 
 import com.g4m.util.GpioUtil;
-import com.g4m.util.ShellUtil;
+import com.g4m.util.RtmpTask;
 import com.pi4j.io.gpio.PinState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author haosenwei[haosenwei@dubmic.com]
@@ -24,6 +22,9 @@ import java.util.Map;
 public class RecieveStringController {
 
     private static final Logger log = LogManager.getLogger(RecieveStringController.class);
+
+    @Autowired
+    RtmpTask rtmpTask;
 
     @Autowired
     GpioUtil gpioUtil;
@@ -85,7 +86,7 @@ public class RecieveStringController {
     public String shShell(@RequestParam(name = "url") String url, @RequestParam(name = "rtmp") String rtmp) {
         log.info("url:{},rtmp:{}", url, rtmp);
         try {
-            ShellUtil.changeUrl(url, rtmp);
+            rtmpTask.change(url, rtmp);
         } catch (Exception e) {
             log.error("播放失败");
             e.printStackTrace();
