@@ -39,8 +39,8 @@ public class Application extends SpringBootServletInitializer {
         return "a";
     }
 
-    @RequestMapping("/roomId")
-    public String setRoomId() {
+    @RequestMapping("/room")
+    public String room() {
         return "room";
     }
 }
