@@ -1,6 +1,7 @@
 package com.g4m;
 
 import com.g4m.controller.RecieveStringController;
+import com.g4m.util.HttpUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -35,6 +37,11 @@ public class Application extends SpringBootServletInitializer {
     @RequestMapping("/lcd")
     public String a() {
         return "a";
+    }
+
+    @RequestMapping("/roomId")
+    public String setRoomId() {
+        return "room";
     }
 }
 

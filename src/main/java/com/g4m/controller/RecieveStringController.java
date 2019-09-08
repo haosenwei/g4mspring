@@ -83,6 +83,23 @@ public class RecieveStringController {
         return "OK";
     }
 
+    @RequestMapping("/roomId")
+    public String roomId(@RequestParam(name = "roomId") int roomId) {
+        log.info("url:{},rtmp:{}", roomId, roomId);
+        try {
+            String[] url1 = HttpUtil.getUrl(roomId);
+            if (url1 == null || url1.length == 0) {
+                return "房间ID错误";
+            }
+            rtmpTask.change(url1, 0);
+        } catch (Exception e) {
+            log.error("播放失败");
+            e.printStackTrace();
+            return "ERROR" + e.getMessage();
+        }
+        return "查询成功，请稍等";
+    }
+
     @RequestMapping("/rtmp")
     public String shShell(@RequestParam(name = "url") int url, @RequestParam(name = "rtmp") String rtmp, @RequestParam(name = "index", defaultValue = "0") int index) {
         log.info("url:{},rtmp:{}", url, rtmp);

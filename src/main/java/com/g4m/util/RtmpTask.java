@@ -45,7 +45,7 @@ public class RtmpTask {
         executor.execute(change);
     }
 
-    public void change(String url[]) throws InterruptedException {
+    public void change(String url[], int index) throws InterruptedException {
         for (Change change : changeSet) {
             change.setPleaseStop();
         }
@@ -53,6 +53,7 @@ public class RtmpTask {
         Thread.sleep(1000L);
         Change change = new Change();
         changeSet.add(change);
+        this.index = index;
         this.urls = url;
         executor.execute(change);
     }
