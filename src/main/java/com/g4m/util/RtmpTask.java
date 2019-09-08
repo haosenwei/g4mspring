@@ -1,5 +1,7 @@
 package com.g4m.util;
 
+
+import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -25,10 +27,11 @@ public class RtmpTask {
 
     protected ExecutorService executor = Executors.newFixedThreadPool(1);
     private static Set<Change> changeSet = new HashSet<>();
-    private String url;
+    private String urls[];
     private String rtmp;
+    private int index;
 
-    public void change(String url, String rtmp) throws InterruptedException {
+    public void change(String[] url, String rtmp, int index) throws InterruptedException {
         for (Change change : changeSet) {
             change.setPleaseStop();
         }
@@ -36,12 +39,13 @@ public class RtmpTask {
         Thread.sleep(1000L);
         Change change = new Change();
         changeSet.add(change);
-        this.url = url;
+        this.urls = url;
         this.rtmp = rtmp;
+        this.index = index;
         executor.execute(change);
     }
 
-    public void change(String url) throws InterruptedException {
+    public void change(String url[]) throws InterruptedException {
         for (Change change : changeSet) {
             change.setPleaseStop();
         }
@@ -49,27 +53,35 @@ public class RtmpTask {
         Thread.sleep(1000L);
         Change change = new Change();
         changeSet.add(change);
-        this.url = url;
+        this.urls = url;
         executor.execute(change);
     }
 
 
     class Change implements Runnable {
         private volatile boolean pleaseStop = false;
+        private volatile Process pro;
 
         @Override
         public void run() {
+
             while (true) {
+                if (index >= urls.length) {
+                    index = 0;
+                    System.out.println("跳出");
+                    break;
+                }
+                String currentUrl = urls[index];
                 if (pleaseStop) {
-                    System.out.println("stop exit");
+                    log.debug("stop exit");
                     return;
                 }
-                String commend = "ffmpeg -re -i \"" + url + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\"";
-                Process pro = null;
+                String[] commend = {"/bin/sh", "-c", "ffmpeg -re -i \"" + currentUrl + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\""};
+                System.out.println(JSONObject.toJSON(commend));
                 try {
                     pro = Runtime.getRuntime().exec(commend);
-                    pro.waitFor();
-
+//                    pro.waitFor();
+                    System.out.println("开始直播");
                     InputStream in = pro.getInputStream();
                     BufferedReader read = new BufferedReader(new InputStreamReader(in));
 
@@ -80,15 +92,19 @@ public class RtmpTask {
                             break;
                         }
                     }
-                    log.debug("结束");
-                } catch (IOException | InterruptedException e) {
+                    log.debug("jieshu");
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+                index = index + 1;
             }
         }
 
         public void setPleaseStop() {
             this.pleaseStop = true;
+            if (pro != null) {
+                pro.destroy();
+            }
         }
     }
 }

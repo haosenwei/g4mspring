@@ -1,6 +1,7 @@
 package com.g4m.controller;
 
 import com.g4m.util.GpioUtil;
+import com.g4m.util.HttpUtil;
 import com.g4m.util.RtmpTask;
 import com.pi4j.io.gpio.PinState;
 import org.apache.logging.log4j.LogManager;
@@ -83,10 +84,11 @@ public class RecieveStringController {
     }
 
     @RequestMapping("/rtmp")
-    public String shShell(@RequestParam(name = "url") String url, @RequestParam(name = "rtmp") String rtmp) {
+    public String shShell(@RequestParam(name = "url") int url, @RequestParam(name = "rtmp") String rtmp, @RequestParam(name = "index", defaultValue = "0") int index) {
         log.info("url:{},rtmp:{}", url, rtmp);
         try {
-            rtmpTask.change(url, rtmp);
+            String[] url1 = HttpUtil.getUrl(url);
+            rtmpTask.change(url1, rtmp, index);
         } catch (Exception e) {
             log.error("播放失败");
             e.printStackTrace();

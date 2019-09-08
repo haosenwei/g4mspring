@@ -127,18 +127,19 @@
     </div>
     <div class="row">
         <div class="col-md-5">
-            <div>
-                <label>
-                    <input name="url" type="text" value="">
-                </label>
-            </div>
+            <label>
+                <input name="url" type="text" value="">
+            </label>
         </div>
         <div class="col-md-5">
-            <div>
-                <label>
-                    <input name="rtmp" type="text" value="rtmp://js.live-send.acg.tv/live-js/">
-                </label>
-            </div>
+            <label>
+                <input name="rtmp" type="text" value="rtmp://js.live-send.acg.tv/live-js/">
+            </label>
+        </div>
+        <div class="col-md-1">
+            <label>
+                <input name="index" type="text" value="0">
+            </label>
         </div>
         <div class="col-md-1">
             <button type="button" id="sendValue3" class="btn btn-default">发送</button>
@@ -225,8 +226,13 @@
     $("#sendValue3").click(function () {
         var url = $("input[name='url']").val()
         var rtmp = $("input[name='rtmp']").val()
+        var index = $("input[name='index']").val()
         console.log(url + rtmp);
-        var date = $.ajax({url: "/rtmp?url=" + url + "&rtmp=" + rtmp, async: false});
+        var date = $.post({
+            url: "/rtmp",
+            async: false,
+            data:{"url":url,"rtmp":rtmp}
+        });
         console.log(date)
     });
 
