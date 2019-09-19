@@ -3,10 +3,7 @@ package com.g4m.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * @author haosenwei[haosenwei@dubmic.com]
@@ -17,7 +14,7 @@ public class RtmpExecTask implements Runnable {
 
     private static final Logger log = LogManager.getLogger(RtmpExecTask.class);
 
-    private Process pro;
+
     private String currentUrl;
     private String rtmp;
 
@@ -26,25 +23,25 @@ public class RtmpExecTask implements Runnable {
         this.rtmp = rtmp;
     }
 
-
     @Override
     public void run() {
-
-        String[] commend = {"/bin/sh", "-c", "ffmpeg -re -i \"" + currentUrl + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\""};
+        Process pro = null;
         try {
-            log.debug("url:{}.begin", currentUrl);
-            pro = Runtime.getRuntime().exec(commend);
+            String[] commend = {"/bin/sh", "-c", "ffmpeg -re -i \"" + currentUrl + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\""};
+            log.debug("url:{}  begin", currentUrl);
+            Runtime.getRuntime().exec(commend);
             pro.waitFor();
-            InputStream in = pro.getInputStream();
-            BufferedReader read = new BufferedReader(new InputStreamReader(in));
-
-            String line = null;
-            while ((line = read.readLine()) != null) {
-                log.debug(line);
-            }
-            log.debug("url:{}.end", currentUrl);
+            pro.destroy();
+            log.debug("url:{} 播放结束", currentUrl);
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            try {
+                pro.getErrorStream().close();
+                pro.getInputStream().close();
+                pro.getOutputStream().close();
+            } catch (Exception ee) {
+            }
+
+            log.debug("url:{} 播放失败", currentUrl);
         }
     }
 }
