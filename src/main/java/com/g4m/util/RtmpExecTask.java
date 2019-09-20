@@ -3,7 +3,9 @@ package com.g4m.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * @author haosenwei[haosenwei@dubmic.com]
@@ -30,9 +32,10 @@ public class RtmpExecTask implements Runnable {
             String[] commend = {"/bin/sh", "-c", "ffmpeg -re -i \"" + currentUrl + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\""};
             log.debug("url:{}  begin", currentUrl);
             pro = Runtime.getRuntime().exec(commend);
+            dealStream(pro);
             pro.waitFor();
             pro.destroy();
-            log.debug("url:{} 播放结束", currentUrl);
+            log.debug("url:{} end", currentUrl);
         } catch (IOException | InterruptedException e) {
             try {
                 pro.getErrorStream().close();
@@ -41,7 +44,55 @@ public class RtmpExecTask implements Runnable {
             } catch (Exception ee) {
             }
 
-            log.debug("url:{} 播放失败", currentUrl);
+            log.debug("url:{} fail", currentUrl);
         }
+    }
+
+    private static void dealStream(Process process) {
+        if (process == null) {
+            return;
+        }
+        // 处理InputStream的线程
+        new Thread() {
+            @Override
+            public void run() {
+                BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line = null;
+                try {
+                    while ((line = in.readLine()) != null) {
+                        log.info("output: " + line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+        // 处理ErrorStream的线程
+        new Thread() {
+            @Override
+            public void run() {
+                BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String line = null;
+                try {
+                    while ((line = err.readLine()) != null) {
+                        log.info("err: " + line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        err.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 }
