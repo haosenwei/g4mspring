@@ -1,9 +1,7 @@
 package com.g4m.controller;
 
-import com.g4m.base.G4mConstants;
-import com.g4m.entity.Config;
-import com.g4m.mapper.ConfigMapper;
 import com.g4m.util.RtmpTask;
+import com.g4m.util.TestJsoupParseHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +21,9 @@ public class IndexController {
     @Autowired
     private RtmpTask rtmpTask;
 
+    @Autowired
+    private TestJsoupParseHtml testJsoupParseHtml;
+
     @GetMapping("/index")
     public ModelAndView index() {
         ModelAndView view = new ModelAndView("index");
@@ -34,6 +35,13 @@ public class IndexController {
     @RequestMapping("/startVideo")
     public String startVideo(@RequestParam(name = "rtmp") String rtmp) {
         rtmpTask.start(rtmp);
+        return "OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/start")
+    public String start() {
+        testJsoupParseHtml.start();
         return "OK";
     }
 }
