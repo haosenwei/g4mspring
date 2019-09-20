@@ -29,7 +29,7 @@ public class RtmpExecTask implements Runnable {
         try {
             String[] commend = {"/bin/sh", "-c", "ffmpeg -re -i \"" + currentUrl + "\" -vcodec copy -acodec aac -b:a 192k -f flv \"" + rtmp + "\""};
             log.debug("url:{}  begin", currentUrl);
-            Runtime.getRuntime().exec(commend);
+            pro = Runtime.getRuntime().exec(commend);
             pro.waitFor();
             pro.destroy();
             log.debug("url:{} 播放结束", currentUrl);
