@@ -9,8 +9,8 @@ WORKSPACE=$(cd `dirname $0`; pwd)
 COMPILE_DIR=${WORKSPACE}
 OUTPUT_DIR=${COMPILE_DIR}/target
 TOMCAT_DIR=~/tomcat
-
-sh ${TOMCAT_DIR}/bin/shutdown.sh
+PORT=`ps -ef | grep tomcat | grep java | awk '{print $2}'`
+kill -9 ${PORT}
 rm -rf ${TOMCAT_DIR}/webapps/*
 mv ${OUTPUT_DIR}/ROOT.war ${TOMCAT_DIR}/webapps/
 sh ${TOMCAT_DIR}/bin/startup.sh
