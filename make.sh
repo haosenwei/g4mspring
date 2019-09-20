@@ -6,13 +6,13 @@
 #镜像默认用DEV配置，随后上线部署时通过confgmag外挂目录
 
 WORKSPACE=$(cd `dirname $0`; pwd)
-echo {WORKSPACE}
 COMPILE_DIR=${WORKSPACE}
 OUTPUT_DIR=${COMPILE_DIR}/target
+TOMCAT_DIR=~/tomcat
 
-sh ~/tomcat/bin/shutdown.sh
-rm -rf ~/tomcat/webapps/*
-mv {OUTPUT_DIR}/ROOT.war ~/tomcat/webapps/
-sh ~/tomcat/bin/startup.sh
+sh ${TOMCAT_DIR}/bin/shutdown.sh
+rm -rf ${TOMCAT_DIR}/webapps/*
+mv ${OUTPUT_DIR}/ROOT.war ${TOMCAT_DIR}/webapps/
+sh ${TOMCAT_DIR}/bin/startup.sh
 echo 'run tomcat'
 exit
